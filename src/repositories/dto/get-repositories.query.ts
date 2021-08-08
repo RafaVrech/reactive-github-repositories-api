@@ -1,3 +1,9 @@
+import { ApiProperty, ApiPropertyOptional, ApiQuery } from "@nestjs/swagger";
+
 export class GetRepositoriesQuery {
-    includeForks = false;
+  @ApiProperty({
+    type: Boolean,
+  })
+  @ApiPropertyOptional()
+  includeForks = false;
 }

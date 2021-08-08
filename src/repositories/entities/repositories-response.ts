@@ -1,7 +1,11 @@
-import { BranchResponse } from "./branch-response";
+import { ApiResponseProperty } from '@nestjs/swagger';
+import { BranchResponse } from './branch-response';
 
 export class RepositoriesResponse {
-    name: string;
-    owner: string;
-    branches: BranchResponse[]
+  @ApiResponseProperty()
+  name: string;
+  @ApiResponseProperty()
+  owner: string;
+  @ApiResponseProperty()
+  branches: BranchResponse[];
 }
