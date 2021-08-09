@@ -13,7 +13,7 @@ export class AcceptGuard implements CanActivate {
 
     if (!acceptedTypes || acceptedTypes.length === 0) return true;
 
-    if (requestAcceptHeaderValue === '*/*') return true;
+    if (!requestAcceptHeaderValue || requestAcceptHeaderValue === '*/*') return true;
 
     if (!acceptedTypes.includes(requestAcceptHeaderValue)) {
       throw new NotAcceptableException(`Accept type '${requestAcceptHeaderValue}' is not supported`);
