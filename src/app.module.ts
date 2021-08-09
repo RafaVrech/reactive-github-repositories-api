@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { EnvironmentConfig } from './config/env.config';
 import { HealthController } from './health/health.controller';
-import { RepositoriesClient } from './repositories/clients/repository.client';
 import { RepositoriesModule } from './repositories/repositories.module';
 
 @Module({

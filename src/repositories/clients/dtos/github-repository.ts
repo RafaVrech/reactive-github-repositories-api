@@ -3,6 +3,6 @@ export class GitHubRepository {
   owner: {
     login: string;
   };
-  commits_url: string;
-  branches_url: string;
+  commits_url?: string;
+  branches_url?: string;
 }

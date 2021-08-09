@@ -1,7 +1,7 @@
 import { Accept } from '@config/accept-header.decorator';
+import { ExceptionResponse } from '@config/exception/exception-response';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ExceptionResponse } from 'src/config/exception/exception-response';
 import { RepositoriesResponse } from '../services/entities/repositories.response';
 import { RepositoriesService } from '../services/repositories.service';
 import { GetRepositoriesQuery } from './queries/get-repositories.query';
@@ -29,7 +29,7 @@ export class RepositoriesController {
     description: 'Accept type not supported',
   })
   @Accept('application/json')
-  async findAll(@Query() getRepositoriesQuery: GetRepositoriesQuery, @Param('user') user: string) {
+  findAll(@Param('user') user: string, @Query() getRepositoriesQuery?: GetRepositoriesQuery) {
     return this.repositoriesService.getRepositories(user, getRepositoriesQuery);
   }
 }

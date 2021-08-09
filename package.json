@@ -63,15 +63,30 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
+    "restoreMocks": true,
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.(t|j)s",
+      "!**/main.ts",
+      "!**/config/**",
+      "!**/dtos/**",
+      "!**/entities/**",
+      "!**/queries/**",
+      "!**/*.module.ts",
+      "!**/health.controller.ts"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "@src/(.*)": [
+        "<rootDir>/src/$1"
+      ],
+      "@config/(.*)": [
+        "<rootDir>/src/config/$1"
+      ]
+    }
   }
 }

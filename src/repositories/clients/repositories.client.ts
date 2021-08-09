@@ -4,16 +4,16 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import { catchError, concatAll, map, Observable } from 'rxjs';
-import { GitHubBranch } from '../clients/dtos/github-branch';
-import { GitHubRepository } from '../clients/dtos/github-repository';
-import { GitHubResponse } from '../clients/dtos/github-response';
+import { GitHubBranch } from './dtos/github-branch';
+import { GitHubRepository } from './dtos/github-repository';
+import { GitHubResponse } from './dtos/github-response';
 
 @Injectable()
 export class RepositoriesClient {
   constructor(private readonly httpService: HttpService, private readonly config: ConfigService<EnvironmentConfig>) {}
-  readonly baseGitHubUrl = this.config.get('clients.gitHubApi');
+  private readonly baseGitHubUrl = this.config.get('clients.gitHubApi');
 
-  getRepositories(user: string, includeForks: boolean): Observable<GitHubRepository[]> {
+  getRepositories(user: string, includeForks = false): Observable<GitHubRepository[]> {
     const repositoriesUrl = `${this.baseGitHubUrl}/search/repositories?q=user:${user}+fork:${includeForks}`;
 
     return this.httpService.get(repositoriesUrl).pipe(
