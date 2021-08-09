@@ -15,7 +15,6 @@ services:
       - PORT=8080
       - BASE_PATH=http://localhost:8080
       - GITHUB_API_BASE_PATH=https://api.github.com
-      - NEW_RELIC_ENABLED=false
 
     ports:
       - "8080:8080"

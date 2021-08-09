@@ -34,7 +34,7 @@ export class RepositoriesService {
     return this.httpService.get(branchesUrl).pipe(
       catchError((error) => {
         throw new HttpException(
-          `Failed to find branches for repository '${repository.owner.login}' of user '${repository.owner.login}'`,
+          `Failed to find branches for repository '${repository.name}' of user '${repository.owner.login}'`,
           HttpStatus.NOT_FOUND,
         );
       }),

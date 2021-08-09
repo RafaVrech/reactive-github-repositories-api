@@ -1,30 +1,6 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Description
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This API consumes GitHub APis and return repositories results in reactive style
 
 ## Installation
 
@@ -33,15 +9,26 @@ $ npm install
 ```
 
 ## Running the app
+>If launching in *Development* or *Watch mode*: <br> Copy the *sample.env* file to the same directory and rename it to *.env*
 
+#### Docker
 ```bash
-# development
+$ cd .\docker
+$ docker-compose up
+```
+
+#### Development
+```bash
 $ npm run start
+```
 
-# watch mode
+#### Watch mode
+```bash
 $ npm run start:dev
+```
 
-# production mode
+#### Production mode
+```bash
 $ npm run start:prod
 ```
 
@@ -58,16 +45,72 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+# REST API
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The REST API endpoints can be found below
+
+## Get repositories from user
+
+### Request
+
+`GET /user/:GitHubUsername/repositories`
+
+| Query param | Default            | Values       | 
+| ----------- | --------------- | --------- | 
+| includeForks     | false          | true, false      | 
+
+    curl -i -H 'Accept: application/json' http://localhost:8080/user/rafavrech/repositories
+
+### Responses
+
+##### Successes
+
+    HTTP/1.1 200 OK
+    Date: Sun, 08 Aug 2021 12:36:32 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: X
+
+    [
+        {
+            "name": "RepositoryName",
+            "owner": "GitHubUserName",
+            "branches": [
+                {
+                    "name": "master",
+                    "lastCommitSHA": "03993b7cfd8f35ba64c9a06eb29e789ac415d155"
+                }
+            ]
+        }
+    ]
+
+##### Errors
+
+    HTTP/1.1 404 Not Found
+    X-Powered-By: Express
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 77
+    Date: Mon, 09 Aug 2021 02:22:29 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+    
+    {"status":404,"message":"Failed to find repositories for user 'rafavresdch'"}
+
+<!-- tsk -->
+
+    HTTP/1.1 406 Not Acceptable
+    X-Powered-By: Express
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 74
+    ETag: W/"4a-Ftmm3wO09kfQ6hkEFAUIPYnYm98"
+    Date: Mon, 09 Aug 2021 02:27:42 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+    
+    {"status":406,"message":"Accept type 'application/test' is not supported"}
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Rafael Vrech](rafavrech@gmail.com)
 
-## License
-
-Nest is [MIT licensed](LICENSE).

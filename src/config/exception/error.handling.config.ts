@@ -11,7 +11,7 @@ export class ErrorHandlingConfig implements ExceptionFilter<HttpException> {
     const request: Request = host.switchToHttp().getRequest();
     const status = error.getStatus();
 
-    logger.error(`${error?.message} on http ${request?.method} ${request?.url}`, JSON.stringify(error?.stack || error));
+    logger.error(error?.message, JSON.stringify(error?.stack || error));
 
     return response.status(status).json(
       {
