@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { RepositoriesService } from './repositories.service';
-import { RepositoriesController } from './repositories.controller';
 import { HttpModule } from '@nestjs/axios';
+import { RepositoriesController } from './controllers/repositories.controller';
+import { RepositoriesService } from './services/repositories.service';
+import { RepositoriesClient } from './clients/repository.client';
 
 @Module({
   imports: [HttpModule],
   controllers: [RepositoriesController],
-  providers: [RepositoriesService]
+  providers: [RepositoriesClient, RepositoriesService]
 })
 export class RepositoriesModule {}

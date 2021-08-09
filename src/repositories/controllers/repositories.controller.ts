@@ -1,11 +1,10 @@
+import { Accept } from '@config/accept-header.decorator';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
 import { ExceptionResponse } from 'src/config/exception/exception-response';
-import { Accept } from './accept-header.decorator';
-import { GetRepositoriesQuery } from './dto/get-repositories.query';
-import { RepositoriesResponse } from './entities/repositories-response';
-import { RepositoriesService } from './repositories.service';
+import { RepositoriesResponse } from '../services/entities/repositories.response';
+import { RepositoriesService } from '../services/repositories.service';
+import { GetRepositoriesQuery } from './queries/get-repositories.query';
 
 @Controller('user')
 export class RepositoriesController {

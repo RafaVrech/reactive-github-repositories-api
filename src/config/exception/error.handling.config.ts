@@ -13,12 +13,9 @@ export class ErrorHandlingConfig implements ExceptionFilter<HttpException> {
 
     logger.error(error?.message, JSON.stringify(error?.stack || error));
 
-    return response.status(status).json(
-      {
-        status: status,
-        message: error.message || 'Something went wrong, please try again later',
-      },
-    );
+    return response.status(status).json({
+      status: status,
+      message: error.message || 'Something went wrong, please try again later',
+    });
   }
 }
-
