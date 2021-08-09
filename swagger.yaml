@@ -1,0 +1,85 @@
+swagger: "2.0"
+info:
+  description: "This API consumes GitHub APis and return repositories results in reactive style"
+  version: "1.0.0"
+  title: "Reactive github repositories API"
+  contact:
+    email: "rafavrech@gmail.com"
+host: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+basePath: "/health"
+tags:
+- name: "Repositories"
+  description: "Retrieve user repositories"
+schemes:
+- "https"
+- "http"
+paths:
+  /user/{username}/repositories:
+    get:
+      tags:
+      - "Repositories"
+      summary: "Retrieve user repositories"
+      description: "By default, returns the repositories of the user that are not forks"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "GitHub username"
+        required: true
+        type: "string"
+      - name: "includeForks"
+        in: "query"
+        description: "Set true to retrieve repositories that are forks. (default is false)"
+        required: false
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Repository"
+        "404":
+          description: "Username not found"
+          schema:
+            $ref: "#/definitions/Error"
+        "406":
+          description: "Return type not supported"
+          schema:
+            $ref: "#/definitions/Error"
+
+definitions:
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+        example: 404
+      message:
+        type: "string"
+        example: "The error was caused by a bug"
+  Branch:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "branch-name-1"
+      lastCommitSHA:
+        type: "string"
+        example: "03993b7cfd8f35ba64c9a06eb29e789ac415d155"
+        
+  Repository:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "example-retository-name"
+      owner:
+        type: "string"
+        example: "usernameExample"
+      branches:
+        type: "array"
+        items:
+          type: "array"
+          items:
+            $ref: "#/definitions/Branch"
+            

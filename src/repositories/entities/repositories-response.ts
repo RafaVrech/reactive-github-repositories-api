@@ -6,6 +6,6 @@ export class RepositoriesResponse {
   name: string;
   @ApiResponseProperty()
   owner: string;
-  @ApiResponseProperty()
+  @ApiResponseProperty({ type: [BranchResponse] })
   branches: BranchResponse[];
 }
